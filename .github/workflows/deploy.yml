@@ -1,0 +1,47 @@
+name: Deploy Application
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_id:
+        description: "Commit ID for rollback (optional)"
+        required: false
+        type: string
+      environment:
+        description: "Select Deployment Environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+  push:
+    branches:
+      - main  # Change this to your deployment branch
+      - rollback
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.commit_id || github.sha }}
+
+      - name: Display Inputs (Debugging)
+        run: |
+          echo "Commit ID: ${{ github.event.inputs.commit_id || github.sha }}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+
+      - name: Build Application
+        run: |
+          echo "Running build for ${{ github.event.inputs.environment }} environment"
+          # Add your build steps here
+          
+      - name: Deploy Application
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment }}"
+          # Add your deployment steps here
