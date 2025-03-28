@@ -19,7 +19,7 @@ on:
 jobs:
   deploy_dev:
     if: github.ref == 'refs/heads/develop'  # Deploy when code is pushed to 'dev'
-    runs-on: ubuntu-latest
+    runs-on: non_prod
     environment:
       name: dev
      
