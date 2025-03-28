@@ -5,7 +5,7 @@ on:
     branches:
       - develop
       - release
-      - master
+      - main
   workflow_dispatch:
     inputs:
       commit_id:
