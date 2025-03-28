@@ -1,0 +1,69 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - dev     # Trigger when pushing to 'dev' branch
+      - main    # Trigger when pushing to 'main' branch
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+    inputs:
+      environment:
+        description: 'Choose the environment to deploy'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  deploy_dev:
+    if: github.ref == 'refs/heads/dev'  # Deploy when code is pushed to 'dev'
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+     
+    approval: true 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.x'
+      
+     
+
+  deploy_prod:
+  
+    if: github.ref == 'refs/heads/main'  # Deploy when code is pushed to 'main'
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: ${{ steps.deploy_prod.outputs.url }}
+    needs: deploy_dev  # Make sure dev is deployed first (if necessary)
+    approval: true  # Manual approval step before deployment
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.x'
+
+      
+        run: echo "Deployment URL: http://prod.example.com"
+
+  # Optional: Approval step for production deployment
+  approval:
+    if: github.ref == 'refs/heads/main'  # Trigger approval only for main branch (production)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request Approval for Production Deployment
+        run: |
+          echo "Waiting for approval to deploy to Production."
+          # Here, you can add a manual intervention step (e.g., approval in GitHub environments)
+
+
