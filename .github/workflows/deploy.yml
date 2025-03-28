@@ -6,20 +6,12 @@ on:
       - develop
       - release
       - main
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual trigger from GitHub UI
     inputs:
-      commit_id:
-        description: "Commit ID for rollback (optional)"
-        required: false
-        type: string
       environment:
-        description: "Select Deployment Environment"
+        description: 'Environment to deploy'
         required: true
-        type: choice
-        options:
-          - dev
-          - staging
-          - prod
+        default: 'Test'
       # branch:
       #   description: choode required branch
       #   required: true
