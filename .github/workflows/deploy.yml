@@ -53,8 +53,7 @@ jobs:
         with:
           node-version: '16.x'
 
-      
-        run: echo "Deployment URL: http://prod.example.com"
+     
 
   # Optional: Approval step for production deployment
   approval:
