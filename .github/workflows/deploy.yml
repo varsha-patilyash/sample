@@ -3,7 +3,7 @@ name: Deploy Application
 on:
   push:
     branches:
-      - dev     # Trigger when pushing to 'dev' branch
+      - develop     # Trigger when pushing to 'dev' branch
       - main    # Trigger when pushing to 'main' branch
   workflow_dispatch:  # Allows manual trigger from GitHub UI
     inputs:
@@ -18,7 +18,7 @@ on:
 
 jobs:
   deploy_dev:
-    if: github.ref == 'refs/heads/dev'  # Deploy when code is pushed to 'dev'
+    if: github.ref == 'refs/heads/develop'  # Deploy when code is pushed to 'dev'
     runs-on: ubuntu-latest
     environment:
       name: dev
