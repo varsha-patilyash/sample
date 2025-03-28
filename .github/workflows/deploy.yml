@@ -19,7 +19,7 @@ on:
 jobs:
   deploy_dev:
     if: github.ref == 'refs/heads/develop'  # Deploy when code is pushed to 'dev'
-    runs-on: non_prod
+    runs-on: self-hosted
     environment:
       name: dev
      
