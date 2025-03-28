@@ -23,7 +23,7 @@ jobs:
     environment:
       name: dev
      
-    approval: true 
+  
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
       name: prod
       url: ${{ steps.deploy_prod.outputs.url }}
     needs: deploy_dev  # Make sure dev is deployed first (if necessary)
-    approval: true  # Manual approval step before deployment
+    # approval: true  # Manual approval step before deployment
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -53,16 +53,6 @@ jobs:
         with:
           node-version: '16.x'
 
-     
 
-  # Optional: Approval step for production deployment
-  approval:
-    if: github.ref == 'refs/heads/main'  # Trigger approval only for main branch (production)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Request Approval for Production Deployment
-        run: |
-          echo "Waiting for approval to deploy to Production."
-          # Here, you can add a manual intervention step (e.g., approval in GitHub environments)
 
 
