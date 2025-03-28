@@ -22,11 +22,6 @@ on:
       #       - release
       
 
-  push:
-    branches:
-      - main  # Change this to your deployment branch
-      - develop
-      - release
 
 jobs:
   deploy:
