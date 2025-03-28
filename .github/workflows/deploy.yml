@@ -16,13 +16,13 @@ on:
           - staging
           - prod
       branch:
-      description: choode required branch
-      required: true
-      type: choice
-      options:
-          - develop
-          - main
-          - relase
+        description: choode required branch
+        required: true
+        type: choice
+        options:
+            - develop
+            - main
+            - release
       
 
   push:
